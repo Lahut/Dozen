@@ -38,7 +38,19 @@ class Login extends Component {
 
     onSubmitLogin(e){
 
-        
+        e.preventDefault();
+
+        const username = this.state.username;
+        const password = this.state.password;
+
+        axios.post('http://localhost:5000/users/login',
+        {
+            user: {
+                username: username,
+                password: password
+            }
+        }
+        ).then(res => console.log(res));
 
     }
 
