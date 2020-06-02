@@ -69,23 +69,5 @@ router.route('/add',[
 
 });
 
-router.route('/login').get((req,res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    User.findOne({username: username, password: password},function(err,user){
-        if(err){
-            console.log(err);
-            return res.status(500).json('Error: ' + err);
-        }
-        if(!user){
-            return res.status(404).json('Error: ' + err);
-        }
-
-        return res.status(200).json('Login successfully!');
-    })
-
-});
-
 module.exports = router;
 
