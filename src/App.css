@@ -1,12 +1,26 @@
-.FirstBox{
-  border-color: black;
-  border-style: solid;
-  display: inline-block;
-  position: absolute;
-  left: 33.5%;
-  top: 15%;
-  width: 700px;
-  height: 500px;
-  border-radius: 10px;
+.main-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    
+}
 
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,300&display=swap');
+.RegisterBox{
+    font-family: 'Kanit', sans-serif;
+}
+h1 {
+    font-size: 200px;
+}
+
+.Register-form {
+    width: 50%;
+    margin: 0 auto;
+}
+.login-form{
+    font-family: 'Kanit', sans-serif;
+    
 }

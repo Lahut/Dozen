@@ -25,7 +25,7 @@ router.route('/add',[
     try{
         let user = await User.findOne({username});
         if(user){
-            return res.status(400).json({errors: [{msg: 'User already exists'}]});
+            return res.status(400).json("User already exist.");
         }
 
 
