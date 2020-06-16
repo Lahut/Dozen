@@ -30,6 +30,7 @@
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
     "typeface-roboto": "0.0.75",
+    "uuid": "^8.1.0",
     "webfontloader": "^1.6.28"
   },
   "scripts": {

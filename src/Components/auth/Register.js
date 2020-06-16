@@ -1,4 +1,8 @@
 import React, { Component, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from '../../actions/alert';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
 import '../../../src/App.css';
 import axios from 'axios';
 export class Register extends Component {
@@ -11,7 +15,6 @@ export class Register extends Component {
         this.onChangePassword2 = this.onChangePassword2.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.ToRegister = this.ToRegister.bind(this);
-
         this.state={
             username:'',
             password:'',
@@ -49,8 +52,9 @@ export class Register extends Component {
     async ToRegister (e){
 
         e.preventDefault();
+
         if(this.state.password !== this.state.password2){
-            console.log('password not match');
+            this.props.setAlert('Password do not match','danger');
         }else{
             const User ={
                 username: this.state.username,
@@ -67,8 +71,15 @@ export class Register extends Component {
                 }
                 const body = JSON.stringify(User);
                 
+                
                 const res = await axios.post('/users/add',body,config);
-
+                this.props.setAlert('Register success.','success');
+                this.setState({
+                    username:'',
+                    password:'',
+                    password2:'',
+                    email:''
+                });
                 console.log(res.data);
 
             }catch(err){
@@ -115,4 +126,11 @@ export class Register extends Component {
     }
 }
 
-export default Register
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired
+}
+
+export default connect(
+    null, 
+    { setAlert }
+)(Register);
