@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import alert from './alert';
+import alertReducer from './AlertReducer';
 
-export default combineReducers({
-    alert
+const rootReducer = combineReducers({  //เวลา actions เรียกใช้จะส่งเข้ามาที่นี่
+    alertReducer
 });
+
+export default rootReducer;

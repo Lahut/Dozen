@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from '../../actions/alert';
-import { setAlert } from '../../actions/alert';
+import { Link } from '../../actions/alertActions';
+import { setAlert } from '../../actions/alertActions';
 import PropTypes from 'prop-types';
 import '../../../src/App.css';
 import axios from 'axios';
