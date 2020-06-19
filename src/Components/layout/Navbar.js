@@ -1,37 +1,62 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom';
-const Navbar = () => {
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/authActions';
+
+const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
+    
+    const authLinks = (
+
+        <ul className="navbar-nav">
+            <li className="nav-item">
+                <Link className="nav-link" onClick={logout} to="/">
+                    Logout
+                </Link>
+            </li>
+        </ul>
+        
+        
+
+    );
+
+    const guessLinks = (
+        <ul className="navbar-nav">
+            <li className="nav-item">
+                <Link to='/login' className="nav-link" >Login</Link>
+            </li>
+            <li className="nav-item">
+                <Link to='/register' className="nav-link" >Register</Link>
+            </li>
+        </ul>
+
+    );
+
     return (
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Dozen</a>
             <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a className="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a className="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a className="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a className="nav-link" href="#">About</a>
-                    </li>
-                </ul>
-                <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <Link to='/login' className="nav-link" >Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to='/register' className="nav-link" >Register</Link>
-                    </li>
-                </ul>
+                    <Link to='/' className="navbar-brand" >Dozen</Link>
+                    <ul className="navbar-nav mr-auto">
+
+                    </ul>       
+                    { !loading && (<Fragment>{ isAuthenticated ? authLinks : guessLinks}</Fragment>) }
+                     
             </div>
         </nav>
     )
 }
 
-export default Navbar
+Navbar.propTypes = {
+    logout: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth:state.authReducer
+});
+
+export default connect(
+    mapStateToProps,{ logout }
+)(Navbar);
 
 

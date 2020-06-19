@@ -21,19 +21,21 @@ router.get('/',auth, async (req,res) => {
 });
 
 
-// POST api/auth
+//@ POST api/auth
+// for login 
 
-router.route('/',[
-    check('username',"Username is required").isEmpty(),
-    check('password',"Please enter a password with 6 or more characters").exists()
-]).post(async (req,res) => {  // handle http post requests
+router.post('/',[
+    check('username',"Username is required").not().isEmpty(),
+    check('password',"Password is required").not().isEmpty()
+], async (req,res) => {  // handle http post requests
     const errors = validationResult(req);
+
     if(!errors.isEmpty()){
-        return res.status(422).json({errors: errors.array()});
+        return res.status(400).json({errors: errors.array()});
     }
 
     const username =  req.body.username;
-    const password =  req.body.password.toString();
+    const password =  req.body.password;
 
     try{
         let user = await User.findOne({username});

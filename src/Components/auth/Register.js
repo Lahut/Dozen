@@ -1,15 +1,14 @@
 import React, { Component, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from '../../actions/alertActions';
+import { Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alertActions';
+import { register } from '../../actions/authActions';
 import PropTypes from 'prop-types';
 import '../../../src/App.css';
-import axios from 'axios';
 export class Register extends Component {
 
     constructor(props){
         super(props);
-
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangePassword2 = this.onChangePassword2.bind(this);
@@ -52,48 +51,22 @@ export class Register extends Component {
     async ToRegister (e){
 
         e.preventDefault();
+        const {username,email,password} = this.state;
 
         if(this.state.password !== this.state.password2){
             this.props.setAlert('Password do not match','danger');
         }else{
-            const User ={
-                username: this.state.username,
-                password: this.state.password2,
-                email: this.state.email
-    
-            }
-
-            try{
-                const config = {
-                    headers:{
-                        'Content-Type' : 'application/json'
-                    }
-                }
-                const body = JSON.stringify(User);
-                
-                
-                const res = await axios.post('/users/add',body,config);
-                this.props.setAlert('Register success.','success');
-                this.setState({
-                    username:'',
-                    password:'',
-                    password2:'',
-                    email:''
-                });
-                console.log(res.data);
-
-            }catch(err){
-                console.error(err.response.data);
-            }
-            
+            this.props.register({ username,email,password });
         }
-
+        
     }
-    
 
-    
 
     render() {
+        // Redirect if logged in 
+        if(this.props.isAuthenticated) {
+            return <Redirect to="/login"/>
+        }
         return (
             <div className="RegisterBox">
                 <h1 style={{textAlign:'center'}}>Register</h1>
@@ -127,10 +100,15 @@ export class Register extends Component {
 }
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
 }
+const mapStateToProps = state => ({
+    isAuthenticated: state.authReducer.isAuthenticated
+});
 
 export default connect(
-    null, 
-    { setAlert }
+    mapStateToProps, 
+    { setAlert , register}
 )(Register);

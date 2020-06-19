@@ -1,21 +1,21 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 let User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
-const auth = require('../../middleware/auth');
 
 require('dotenv').config();
 
 
-router.route('/add',[
-    check('username',"Username is required").isEmpty(),
-    check('email',"Email is required").isEmpty(),
+router.post('/add',[
+    check('username',"Username is required").not().isEmpty(),
+    check('email',"Email is required").not().isEmpty(),
     check('password',"Please enter a password with 6 or more characters").isLength({ min: 6})
-]).post(async (req,res) => {  // handle http post requests
+],async (req,res) => {  // handle http post requests
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(422).json({errors: errors.array()});
+        return res.status(400).json({errors: errors.array()});
     }
 
     const username =  req.body.username;
