@@ -20,7 +20,6 @@ export class Landing extends Component {
                         <p className="col-sm">
                             &copy; {new Date().getFullYear} DOZEN | All right reserved | Terms Of Service | Privacy
                         </p>
-
                     </div>
                 </div>
             </footer>

@@ -1,4 +1,4 @@
-import React,{ useEffect} from 'react';
+import React from 'react';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import reducers from './reducers'
 import thunk from 'redux-thunk';
-import {loadUser} from './actions/authActions';
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducers,composeEnhancer(applyMiddleware(thunk)));
@@ -22,4 +21,4 @@ ReactDOM.render(
 );
 serviceWorker.unregister();
 
-export default store;
+export default store;  

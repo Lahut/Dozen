@@ -24,8 +24,9 @@ router.post('/add',[
 
     try{
         let user = await User.findOne({username});
+        const error_msg = "User already exist."
         if(user){
-            return res.status(400).json("User already exist.");
+            return res.status(400).json({error_msg});
         }
 
 

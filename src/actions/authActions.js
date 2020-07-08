@@ -8,7 +8,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    CLEAR_PROFILE
 }from './types';
 
 // Load User
@@ -53,12 +54,22 @@ export const register = ({ username,email,password }) => async dispatch => {
             payload: res.data  // token
         });
         dispatch(setAlert('Register Success.','success'));
-        dispatch(loadUser());
+        //dispatch(loadUser());
     }catch (err){
         const errors = err.response.data.errors;
+        const error = err.response.data.error_msg;
         if(errors) {
-            errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+            errors.forEach(error => {
+                dispatch(setAlert(error.msg,'danger'));
+            });
+            
+        }else{
+            // eslint-disable-next-line no-lone-blocks
+            {dispatch(setAlert(error,'danger'));}
         }
+        
+            
+    
         dispatch({
             type: REGISTER_FAIL
         });
@@ -106,6 +117,9 @@ export const login = ({ username,password }) => async dispatch => {
 //logout
 
 export const logout = () => dispatch => {
+    dispatch({
+        type: CLEAR_PROFILE
+    });
     dispatch({
         type: LOGOUT
     });

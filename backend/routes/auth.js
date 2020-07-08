@@ -68,16 +68,6 @@ router.post('/',[
         return res.status(500).send('Server error: '+err);
     }
 
-    
-
-
-
-
-    
-
-    
-
-
 });
 
 

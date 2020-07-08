@@ -24,6 +24,11 @@ const KycSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    KYCstatus : {
+        type: String,
+        required: true,
+        default: 'Not approve'
+    },
     tel : {
         type: String,
         required: true
@@ -36,9 +41,6 @@ const KycSchema = new mongoose.Schema({
         data: Buffer, ContentType: String
     },
     imgSelfie :{
-        data: Buffer, ContentType: String
-    },
-    imgBankAcc : {
         data: Buffer, ContentType: String
     }
 });
