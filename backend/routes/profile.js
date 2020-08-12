@@ -28,8 +28,7 @@ router.get('/me',auth, async (req, res) => {
 router.post('/',[
     auth,
     [
-        check('firstName','Firstname is required').not().isEmpty(),
-        check('lastName','Lastname is required').not().isEmpty()
+        
 ] ] , async (req,res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -38,13 +37,21 @@ router.post('/',[
 
     const {
         firstName,
-        lastName
+        lastName,
+        facebook,
+        instagram,
+        line,
+        twitter
     } = req.body;
     // Build profile object
     const profileFields = {};
     profileFields.user = req.user.id;  // by token
     if(firstName) profileFields.firstName = firstName;
     if(lastName) profileFields.lastName = lastName;
+    if(facebook) profileFields.facebook = facebook;
+    if(instagram) profileFields.instagram = instagram;
+    if(line) profileFields.line = line;
+    if(twitter) profileFields.twitter = twitter;
 
     try{
         let profile = Profile.findOne({ user: req.user.id}); // find from User _id
@@ -59,9 +66,9 @@ router.post('/',[
         }
 
 
-        profile = new Profile(profileFields);
+        //profile = new Profile(profileFields);
         
-        await profile.save();
+        //await profile.save();
         return res.json(profile);
 
 
@@ -130,6 +137,41 @@ router.post('/',[
         res.json({msg: 'User deleted'});
         
 
+    });
+
+    router.post('/kyc',[
+        auth,
+        [
+            check('firstName','Firstname is required').not().isEmpty(),
+            check('lastName','Lastname is required').not().isEmpty()
+    ] ] , async (req,res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors: errors.array() });
+        }
+    
+        const {
+            firstName,
+            lastName
+        } = req.body;
+        // Build profile object
+        const profileFields = {};
+        profileFields.user = req.user.id;  // by token
+    
+        try{
+    
+            
+    
+    
+        }catch(err){
+            console.error(err.message);
+            res.status(500).send('Server Error');
+    
+        }
+        
+        
+    
+    
     });
 module.exports = router;
 

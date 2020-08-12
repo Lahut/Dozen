@@ -15,6 +15,18 @@ const ProfileSchema = new mongoose.Schema({
     },
     lastName: {
         type: String
+    },
+    facebook : {
+        type: String
+    },
+    line : {
+        type : String
+    },
+    instagram : {
+        type : String
+    },
+    twitter : {
+        type : String
     }
 
 });

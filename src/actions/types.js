@@ -10,4 +10,5 @@ export const LOGOUT = 'LOGOUT';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERROR = 'LOGOUT';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
+export const KYC_CREATE = 'KYC_CREATE';
 

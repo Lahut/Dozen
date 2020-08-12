@@ -5,11 +5,13 @@ import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
 import Dashboard from './Components/dashboard/Dashboard';
 import Kyc from './Components/kyc/Kyc';
+import Profile from './Components/profile-forms/Profile'
 import PrivateRoute from './Components/routing/PrivateRoute';
 import './App.css';
 import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import Alert from './Components/layout/Alert';
 import { loadUser } from './actions/authActions';
+import { getCurrentProfile } from './actions/profileActions'
 import { setAuthToken } from './utills/setAuthToken';
 import store from './index';
 
@@ -21,6 +23,7 @@ const  App = () => {
   
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getCurrentProfile());
   },[]);
     return (
       <div className="page-container">
@@ -35,25 +38,11 @@ const  App = () => {
                   <Route exact path='/register' component={Register}/>
                   <PrivateRoute exact path='/dashboard' component={Dashboard} />
                   <PrivateRoute exact path='/kyc' component={Kyc}/>
+                  <PrivateRoute exact path='/profile' component={Profile}/>
                 </Switch>
               </section>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
-              <h1>DOZEN</h1>
+
+
               <Footer />
             </Fragment>
           </Router>

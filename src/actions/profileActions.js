@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { setAlert } from './alertActions'
 import {
     GET_PROFILE,
     PROFILE_ERROR
@@ -22,3 +22,35 @@ export const getCurrentProfile = () => async dispatch => {
         })
     }
 }
+
+//update 
+
+export const UpdateProfile = (formData) => async dispatch => {
+    try{
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        }
+
+        const res = await axios.post('/profile', formData , config)
+
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+
+        dispatch(setAlert('Profile Updated','success'))
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+        }
+
+        
+        
+    }
+}
+

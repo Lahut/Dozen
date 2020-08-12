@@ -28,15 +28,17 @@ h1 {
 .kycForm {
     margin: 10px;
     margin-left: 100px;
+    
 }
-.kycForm input  {
-    width: 50%;
+.kycForm  {
+    
 }
 
 .page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: 'Kanit', sans-serif;
 }
 
 .content-wrap {

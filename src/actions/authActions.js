@@ -9,7 +9,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
 }from './types';
 
 // Load User
@@ -123,4 +123,49 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     });
+}
+
+//Create KYC
+
+export const kycCreate = (values) => async dispatch => {
+    const config = {
+        headers:{
+            'Content-Type': 'application/json'
+        }
+
+    }
+
+    const body = JSON.stringify();  //เตรียมข้อมูลจาก body
+    
+    try {
+        const res = await axios.post('/users/kyc/upload',body,config);
+        
+        dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data  // token
+        });
+        dispatch(setAlert('Sending KYC success! Waiting for approve 2-3 days','success'));
+        //dispatch(loadUser());
+    }catch (err){
+        const errors = err.response.data.errors;
+        const error = err.response.data.error_msg;
+        if(errors) {
+            errors.forEach(error => {
+                dispatch(setAlert(error.msg,'danger'));
+            });
+            
+        }else{
+            // eslint-disable-next-line no-lone-blocks
+            {dispatch(setAlert(error,'danger'));}
+        }
+        
+            
+    
+        dispatch({
+            type: REGISTER_FAIL
+        });
+
+    }
+    
+    
 }

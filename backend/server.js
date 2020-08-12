@@ -32,13 +32,11 @@ connection.once('open', () => {
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
-const kycRouter = require('./routes/kyc');
 
 
 app.use('/users',usersRouter);
 app.use('/auth',authRouter);
 app.use('/profile',profileRouter);
-app.use('/kyc',kycRouter);
 
 
 

@@ -5,7 +5,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    KYC_CREATE
 }from '../actions/types';
 
 const initialState ={
@@ -28,6 +29,7 @@ export default function (state = initialState, action){
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
+        case KYC_CREATE:
             localStorage.setItem('token',payload.token);
             return {
                 ...state,
